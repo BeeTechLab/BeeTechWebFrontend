@@ -775,3 +775,52 @@ button:hover {
         transform: rotate(360deg);
     }
 }
+
+.popup-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 999;
+}
+
+.popup-box.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.popup-content {
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    animation: scaleIn 0.3s ease;
+}
+
+.popup-content p {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.popup-content button {
+    padding: 8px 20px;
+    border: none;
+    background: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
