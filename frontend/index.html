@@ -24,7 +24,7 @@
             <a href="#photo">Gallery</a>
             <a href="#about">About</a>
             <a href="#location">Location</a>
-            <!-- <a href="#register">Registration</a> -->
+            <a href="#register">Registration</a>
             <a href="#contact">Contact</a>
         </nav>
 
@@ -48,7 +48,7 @@
 
         <div class="carousel">
             <div class="slides" id="slides">
-                <img src="./images/TYPING WARRIOR’S 2.png" alt="">
+                <img src="./images/web.jpeg" alt="">
                 <img src="./images/13.jpeg" alt="">
                 <img src="./images/Earn a Government-Approved Certificate_page-0001.jpg  " alt="">
             </div>
@@ -263,23 +263,32 @@
     </section>
 
     <!-- REGISTRATION -->
-    <!-- <section id="register">
-        <h2>Register</h2>
-        <form id="demoForm" onsubmit="submitForm(event)">
-            <input type="text" placeholder="Name" id="student_name" required>
-            <input type="text" placeholder="Father's / Guardian Name" id="fathers_name" required>
-            <input type="tel" placeholder="Phone Number" id="phone_number" required>
-            <input type="email" placeholder="Email Address" id="email" required>
 
-            <select id="qualification" required>
+    <section id="register">
+        <h2><span style="color: black;">TYPING </span><span style="color: red;">WARRIOR’S</span><br>Register</h2>
+        
+        <form id="demoForm" onsubmit="submitForm(event)" method="post" name="google-sheet">
+            <input type="text" placeholder="Name" id="student_name" required name="name">
+            <!-- <input type="text" placeholder="Father's / Guardian Name" id="fathers_name" required name=""> -->
+            <input type="tel" placeholder="Phone Number" id="phone_number" required name="mobile">
+            <input type="email" placeholder="Email Address" id="email" required name="email">
+
+            <select id="qualification" required name="qualification">
                 <option value="">Qualification</option>
                 <option>10th Pass</option>
                 <option>12th Pass</option>
             </select>
+            <input type="text" name="message" id="message" placeholder="Message" required>
 
-            <button type="submit">Submit</button>
+            <!-- <button type="submit" name="submit">Submit</button> -->
+            <button type="submit" id="submitBtn" name="submit">Submit</button>
+
+            <div id="loader" style="display: none;">
+                <div class="spinner"></div>
+            </div>
         </form>
-    </section> -->
+    </section>
+
 
     <!-- CONTACT -->
     <footer class="footer" id="contact">
@@ -349,6 +358,44 @@
     <div id="loader" class="loader">
         <div class="spinner"></div>
     </div>
+
+    <script>
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyYPZT8PVD7DKiUlPxvLXb5F8k90cBYTlwoQlQfEG3EpLGRX_mdifGe0CS13JRyDNtqHA/exec';
+const form = document.forms['google-sheet'];
+
+form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    // 🔄 Show loading popup
+    showPopup("⏳ Submitting your form... Please wait");
+
+    fetch(scriptURL, {
+        method: 'POST',
+        body: new FormData(form)
+    })
+    .then(res => res.text())
+    .then(() => {
+        // ✅ Success popup
+        showPopup("✅ Form submitted successfully!");
+        form.reset();
+    })
+    .catch(error => {
+        console.error('Error!', error.message);
+
+        // ❌ Error popup
+        showPopup("❌ Submission failed. Try again.");
+    });
+});
+</script>
+
+<div id="popupBox" class="popup-box">
+    <div class="popup-content">
+        <p id="popupMessage">Message here</p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+</div>
+
+    
 </body>
 
 </html>
