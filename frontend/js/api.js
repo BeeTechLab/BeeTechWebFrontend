@@ -119,3 +119,15 @@ scrollBtn.onclick = function () {
         behavior: "smooth"
     });
 };
+
+function showPopup(message) {
+    const box = document.getElementById("popupBox");
+    const text = document.getElementById("popupMessage");
+
+    text.innerText = message;
+    box.classList.add("active");
+}
+
+function closePopup() {
+    document.getElementById("popupBox").classList.remove("active");
+}
